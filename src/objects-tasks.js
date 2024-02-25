@@ -20,8 +20,6 @@
 
 function shallowCopy(obj) {
   const res = structuredClone(obj);
-  // const res = Object.create(obj); 2 error
-  // const res = Object.assign(obj);
   return res;
 }
 
@@ -45,15 +43,12 @@ function mergeObjects(objects) {
   }
   const objLength = objects.length;
 
-  // Create init arrays of keys and values
   const arrayOfKeys = Object.keys(objects[0]);
   const arrayOfValues = Object.values(objects[0]);
 
   for (let j = 1; j < objLength; j += 1) {
-    // Create current arrays of keys and values
     const currentKeys = Object.keys(objects[j]);
     const currentValues = Object.values(objects[j]);
-    // Compare keys init and current arrays
     for (let i = 0; i < currentKeys.length; i += 1) {
       if (arrayOfKeys.includes(currentKeys[i])) {
         const indexForMerge = arrayOfKeys.indexOf(currentKeys[i]);
@@ -294,7 +289,7 @@ function fromJSON(proto, json) {
  *    ]
  */
 function sortCitiesArray(arr) {
-  return arr.sort(function (a, b) {
+  return arr.sort(function hi(a, b) {
     if (a.country !== b.country) {
       if (a.country > b.country) {
         return 1;
@@ -346,7 +341,7 @@ function sortCitiesArray(arr) {
  */
 function group(array, keySelector, valueSelector) {
   const MAP = new Map();
-  array.map(function (element) {
+  array.map(function hi(element) {
     const hasKey = !MAP.has(keySelector(element));
     if (hasKey) {
       MAP.set(keySelector(element), []);
