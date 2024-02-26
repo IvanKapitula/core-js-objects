@@ -407,33 +407,193 @@ function group(array, keySelector, valueSelector) {
  *  For more examples see unit tests.
  */
 
+class CssBuilder {
+  constructor(object, result) {
+    Object.assign(this, object, result);
+  }
+}
+
 const cssSelectorBuilder = {
-  element(/* value */) {
-    throw new Error('Not implemented');
+  result: [],
+
+  element(value) {
+    if (this.result.includes('first')) {
+      throw new TypeError(
+        'Element, id and pseudo-element should not occur more then one time inside the selector'
+      );
+    }
+    if (this.result.includes('second')) {
+      throw new TypeError(
+        'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element'
+      );
+    }
+    if (this.result.includes('third')) {
+      throw new TypeError(
+        'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element'
+      );
+    }
+    if (this.result.includes('fourth')) {
+      throw new TypeError(
+        'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element'
+      );
+    }
+    if (this.result.includes('fifth')) {
+      throw new TypeError(
+        'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element'
+      );
+    }
+    if (this.result.includes('sixth')) {
+      throw new TypeError(
+        'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element'
+      );
+    }
+    const sel = [...this.result, `${value}`];
+    sel.unshift('first');
+    const obj = new CssBuilder(this, {
+      result: sel,
+    });
+    return obj;
   },
 
-  id(/* value */) {
-    throw new Error('Not implemented');
+  id(value) {
+    if (this.result.includes('second')) {
+      throw new TypeError(
+        'Element, id and pseudo-element should not occur more then one time inside the selector'
+      );
+    }
+
+    if (this.result.includes('third')) {
+      throw new TypeError(
+        'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element'
+      );
+    }
+    if (this.result.includes('fourth')) {
+      throw new TypeError(
+        'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element'
+      );
+    }
+    if (this.result.includes('fifth')) {
+      throw new TypeError(
+        'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element'
+      );
+    }
+    if (this.result.includes('sixth')) {
+      throw new TypeError(
+        'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element'
+      );
+    }
+
+    const sel = [...this.result, `#${value}`];
+    sel.unshift('second');
+    const obj = new CssBuilder(this, {
+      result: sel,
+    });
+    return obj;
   },
 
-  class(/* value */) {
-    throw new Error('Not implemented');
+  class(value) {
+    if (this.result.includes('fourth')) {
+      throw new TypeError(
+        'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element'
+      );
+    }
+    if (this.result.includes('fifth')) {
+      throw new TypeError(
+        'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element'
+      );
+    }
+    if (this.result.includes('sixth')) {
+      throw new TypeError(
+        'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element'
+      );
+    }
+    const sel = [...this.result, `.${value}`];
+    sel.unshift('third');
+    const obj = new CssBuilder(this, {
+      result: sel,
+    });
+    return obj;
   },
 
-  attr(/* value */) {
-    throw new Error('Not implemented');
+  attr(value) {
+    if (this.result.includes('fifth')) {
+      throw new TypeError(
+        'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element'
+      );
+    }
+    if (this.result.includes('sixth')) {
+      throw new TypeError(
+        'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element'
+      );
+    }
+    const sel = [...this.result, `[${value}]`];
+    sel.unshift('fourth');
+    const obj = new CssBuilder(this, {
+      result: sel,
+    });
+    return obj;
   },
 
-  pseudoClass(/* value */) {
-    throw new Error('Not implemented');
+  pseudoClass(value) {
+    if (this.result.includes('sixth')) {
+      throw new TypeError(
+        'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element'
+      );
+    }
+    const sel = [...this.result, `:${value}`];
+    sel.unshift('fifth');
+    const obj = new CssBuilder(this, {
+      result: sel,
+    });
+    return obj;
   },
 
-  pseudoElement(/* value */) {
-    throw new Error('Not implemented');
+  pseudoElement(value) {
+    if (this.result.includes('sixth')) {
+      throw new TypeError(
+        'Element, id and pseudo-element should not occur more then one time inside the selector'
+      );
+    }
+    const sel = [...this.result, `::${value}`];
+    sel.unshift('sixth');
+    const obj = new CssBuilder(this, {
+      result: sel,
+    });
+    return obj;
   },
 
-  combine(/* selector1, combinator, selector2 */) {
-    throw new Error('Not implemented');
+  combine(selector1, combinator, selector2) {
+    const res = `${selector1.stringify()} ${combinator} ${selector2.stringify()}`;
+
+    return {
+      stringify: function str() {
+        return res;
+      },
+    };
+  },
+  stringify() {
+    for (let i = 0; i < 10; i += 1) {
+      if (this.result.includes('first')) {
+        this.result.splice(this.result.indexOf('first'), 1);
+      }
+      if (this.result.includes('second')) {
+        this.result.splice(this.result.indexOf('second'), 1);
+      }
+      if (this.result.includes('third')) {
+        this.result.splice(this.result.indexOf('third'), 1);
+      }
+      if (this.result.includes('fourth')) {
+        this.result.splice(this.result.indexOf('fourth'), 1);
+      }
+      if (this.result.includes('fifth')) {
+        this.result.splice(this.result.indexOf('fifth'), 1);
+      }
+      if (this.result.includes('sixth')) {
+        this.result.splice(this.result.indexOf('sixth'), 1);
+      }
+    }
+
+    return this.result.join(',').split(',').join('');
   },
 };
 
