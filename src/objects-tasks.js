@@ -19,9 +19,8 @@
  */
 
 function shallowCopy(obj) {
-  const res = structuredClone(obj);
-  // const res = Object.assign(obj);
-
+  const resStClone = structuredClone(obj);
+  const res = Object.assign(resStClone);
   return res;
 }
 
